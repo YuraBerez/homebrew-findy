@@ -5,8 +5,12 @@ job search. This tap installs it on macOS (Apple Silicon and Intel).
 
 ```sh
 brew tap yuraberez/findy
+brew trust yuraberez/findy
 brew install --cask findy
 ```
+
+`brew trust` is needed once: Homebrew loads casks from taps outside its own catalogue
+only after you trust them.
 
 Update with `brew upgrade --cask findy`. `brew uninstall --cask findy` keeps your
 board; `brew uninstall --zap --cask findy` removes it too.
