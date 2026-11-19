@@ -19,6 +19,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: ./update.sh
       - name: Check the cask
+        env:
+          # The online audit calls the GitHub API; without a token it shares the
+          # runner's 60 requests an hour with every other job on that address
+          HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
         run: |
           brew tap-new --no-git local/check >/dev/null
           mkdir -p "$(brew --repository local/check)/Casks"
