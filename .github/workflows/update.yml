@@ -21,6 +21,7 @@ jobs:
       - name: Check the cask
         run: |
           brew tap-new --no-git local/check >/dev/null
+          mkdir -p "$(brew --repository local/check)/Casks"
           cp Casks/findy.rb "$(brew --repository local/check)/Casks/findy.rb"
           brew audit --cask --strict local/check/findy
           brew fetch --cask local/check/findy
