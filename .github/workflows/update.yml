@@ -1,0 +1,33 @@
+name: Follow Findy releases
+
+# Daily, and on demand: move the cask to the latest published Findy release.
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Update the cask
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: ./update.sh
+      - name: Check the cask
+        run: |
+          brew tap-new --no-git local/check >/dev/null
+          cp Casks/findy.rb "$(brew --repository local/check)/Casks/findy.rb"
+          brew audit --cask --strict local/check/findy
+          brew fetch --cask local/check/findy
+      - name: Commit a new version
+        run: |
+          git diff --quiet && exit 0
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -am "findy $(sed -nE 's/^  version \"([^\"]+)\"/\1/p' Casks/findy.rb)"
+          git push
