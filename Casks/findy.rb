@@ -1,9 +1,9 @@
 cask "findy" do
   arch arm: "Apple-Silicon", intel: "Intel"
 
-  version "0.6.0"
-  sha256 arm:   "66b467b869ad1cc607d60590809052771bb1ad53c12c39fdc13c98be6de8188b",
-         intel: "845a4f32af8efd4c0a677811d94fb9f163cab9d87a2b9c9cb2e620853381f75d"
+  version "0.6.1"
+  sha256 arm:   "24f88b05f3f506ee9856568c70fc5cdf62cad5f7b94b7a8d78cfb1a17f2fc984",
+         intel: "4431b4540668b3d10d3291971d94682c1a9350363d74b5054e2740e22fa8e589"
 
   url "https://github.com/YuraBerez/findy/releases/download/v#{version}/Findy-#{version}-macOS-#{arch}.dmg"
   name "Findy"
